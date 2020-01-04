@@ -33,8 +33,8 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const ids = await db("fruits").insert(req.body)
-    const newFruit = await db("fruits").where({ id: ids[0] }).first()
+    const [ids] = await db("fruits").insert(req.body)
+    const newFruit = await db("fruits").where({ id: ids }).first()
     
     res.status(201).json(newFruit)
   } catch (err) {
